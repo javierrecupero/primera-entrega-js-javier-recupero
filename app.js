@@ -37,24 +37,78 @@
 
 // CREE UN ARRAY DE 3 OBJECTOS CON 2 ATRIBUTOS
 
-const hamburguesas = [
-    hamburguesa_1 = {nombre: "de carne", precio: 1000},
-    hamburguesa_2 = {nombre: "de pollo", precio: 800},
-    hamburguesa_3 = {nombre: "de lentejas", precio: 600} 
-]
+//const hamburguesas = [
+   // hamburguesa_1 = {nombre: "de carne", precio: 1000},
+    //hamburguesa_2 = {nombre: "de pollo", precio: 800},
+    //hamburguesa_3 = {nombre: "de lentejas", precio: 600} 
+//]
 
 // ACA PIDO EL NUMERO PARA AUMENTAR EL PRECIO
 
-porcentaje_incremento  = parseFloat(prompt("Ingrese precio actuaizado en porcentaje: "));
+//porcentaje_incremento  = parseFloat(prompt("Ingrese precio actuaizado en porcentaje: "));
 
 // ACA ITERO EL ARRAY DE OBJETOS Y SACO EL PRECIO A AUMENTAR Y RETURNAMOS SU AUMENTO CON SU PRECIO FINAL
 
-const precioFinal = hamburguesas.map(function mapper(hamburguesa){
-    let precioAumentado = ((hamburguesa.precio * porcentaje_incremento) / 100)
-    let precioFinal = hamburguesa.precio + precioAumentado;
-    return hamburguesa.nombre + " aumento: $" + precioAumentado + " precio final: $" + precioFinal;
-});
+//const precioFinal = hamburguesas.map(function mapper(hamburguesa){
+    //let precioAumentado = ((hamburguesa.precio * porcentaje_incremento) / 100)
+    //let precioFinal = hamburguesa.precio + precioAumentado;
+    //return hamburguesa.nombre + " aumento: $" + precioAumentado + " precio final: $" + precioFinal;
+//});
 
 // MOSTRAMOS EL RESULTO POR CONSOLA
 
-console.log(precioFinal);
+//console.log(precioFinal);
+
+
+
+//JSON de productos
+
+product1 = {
+    'name'   : 'Hamburguesa 1',
+    'price'   : 1000
+};
+
+product2 = {
+    'name'   : 'Hamburguesa 2',
+    'price'   : 2000
+};
+
+product3 = {
+    'name'   : 'Hamburguesa 3',
+    'price'   : 3000
+};
+
+products = [product1, product2, product3];
+
+//Aplicamos dom y uso de eventos
+
+let ul = document.createElement('ul');
+ul.setAttribute('id','proList');
+
+let list = document.getElementById('renderList');
+let button = document.getElementById('button-ver-productos');
+
+list.style.display = "none";
+
+button.addEventListener('click', () => {
+    list.style.display = "block";
+    list.appendChild(ul);
+    products.forEach(renderProductList);
+    button.style.display = "none";
+});
+
+
+function renderProductList(element, index, arr) {
+    let li = document.createElement('li');
+    li.setAttribute('class','item');
+
+    ul.appendChild(li);
+
+    li.innerHTML = li.innerHTML + element.name + ' $ ' + element.price;
+}
+
+//Guardamos la informacion en el Storage
+
+const saveProduct = (index, element) => {localStorage.setItem(index,element)}
+for (product of products)
+    guardarProd(product.id, JSON.stringify(products))
