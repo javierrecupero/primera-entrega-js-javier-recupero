@@ -63,7 +63,7 @@
 
 //JSON de productos
 
-product1 = {
+/* product1 = {
     'name'   : 'Hamburguesa 1',
     'price'   : 1000
 };
@@ -111,4 +111,43 @@ function renderProductList(element, index, arr) {
 
 const saveProduct = (index, element) => {localStorage.setItem(index,element)}
 for (product of products)
-    guardarProd(product.id, JSON.stringify(products))
+    guardarProd(product.id, JSON.stringify(products)) */
+
+    getBurgers();
+    
+    function getBurgers(){
+        let foodJson = `./json/food.json`;
+        let elementoList = document.getElementById("list");
+        fetch(foodJson)
+            .then(response => response.json())
+            .then(dataBurgers => {
+                    localStorage.setItem("food", JSON.stringify(dataBurgers));
+                    let food = JSON.parse(localStorage.getItem("food"));
+                    for (let index = 0; index < dataBurgers.length; index++) {
+                        const burger = food[index];
+                        let elementoCol = document.createElement("div");
+                        elementoCol.classList.add("col-md-3");
+                        elementoCol.innerHTML = `
+                            <div class="text-center">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">"${burger.name}"</h5>
+                                        <p class="card-text">"${burger.desc}"</p>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">"${burger.price}"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                        elementoList.appendChild(elementoCol);                      
+                    }
+                }
+                )
+            .catch(err => console.error(err))
+            .finally(() => {
+                console.log('Experiment completed');
+            }); 
+    }
+
+
